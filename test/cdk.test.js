@@ -1,17 +1,16 @@
-// const cdk = require('aws-cdk-lib/core');
-// const { Template } = require('aws-cdk-lib/assertions');
-// const Cdk = require('../lib/cdk-stack');
+const cdk = require("aws-cdk-lib");
+const { Template } = require("aws-cdk-lib/assertions");
+const { CdkAppStack } = require("../lib/cdk-app-stack");
 
-// example test. To run these tests, uncomment this file along with the
-// example resource in lib/cdk-stack.js
-test('SQS Queue Created', () => {
-//   const app = new cdk.App();
-//   // WHEN
-//   const stack = new Cdk.CdkStack(app, 'MyTestStack');
-//   // THEN
-//   const template = Template.fromStack(stack);
+test("creates the Java Lambda and customer summary API", () => {
+	const app = new cdk.App();
+	const stack = new CdkAppStack(app, "TestStack");
+	const template = Template.fromStack(stack);
 
-//   template.hasResourceProperties('AWS::SQS::Queue', {
-//     VisibilityTimeout: 300
-//   });
+	template.resourceCountIs("AWS::Lambda::Function", 1);
+	template.hasResourceProperties("AWS::Lambda::Function", {
+		Runtime: "java17",
+		Handler: "com.customersummary.Handler::handleRequest",
+	});
+	template.resourceCountIs("AWS::ApiGateway::RestApi", 1);
 });

@@ -1,5 +1,9 @@
 node_modules
 
+lambda/target
+lambda/dependency-reduced-pom.xml
+submission.zip
+
 # CDK asset staging directory
 .cdk.staging
 cdk.out

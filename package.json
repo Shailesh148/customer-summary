@@ -2,9 +2,11 @@
   "name": "cdk",
   "version": "0.1.0",
   "scripts": {
-    "build": "echo \"The build step is not required when using JavaScript!\" && exit 0",
+    "build": "cd lambda && mvn -q package -DskipTests",
     "cdk": "cdk",
-    "test": "jest"
+    "test": "jest",
+    "synth": "npm run build && npx cdk synth",
+    "deploy": "npm run build && npx cdk deploy"
   },
   "devDependencies": {
     "aws-cdk": "2.1141.0",
