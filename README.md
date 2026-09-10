@@ -13,7 +13,9 @@ enriched customer order summaries.
 
 - I have added dto layer for handling request and responses classes, mapper to do the necessary conversions as required by the openapi yml, service layer to handle all logical portions and a common httpClient class so the three api calls could call this directly.
 
-- I used AWS CDK to define and provision the deployment stack as infrastructure as code. The deployment stack consists of an API Gateway endpoint that receives request and then invokes the Lambda function. The Lambda function then calls the three downstream APIs, aggregates their responses, and returns the combined result through API Gateway. I have not kept Lambda inside a private VPC subnet here. 
+- I used AWS CDK to define and provision the deployment stack as infrastructure as code. The deployment stack consists of an API Gateway endpoint that receives request and then invokes the Lambda function. The Lambda function then calls the three downstream APIs, aggregates their responses, and returns the combined result through API Gateway. I have not kept Lambda inside a private VPC subnet here.
+
+- One place I struggled was while running the API Gateway endpoint. I was getting 403 forbidden error when called through my Lambda function in AWS. I have bypassed this for now passing a User-Agent in the api calls made to the fake apis.
 
 ## Edge Cases Handling
 - Customers without any carts are excluded from the response.
